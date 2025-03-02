@@ -1,0 +1,425 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #3e8e41;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --light-gray: #eee;
+    --medium-gray: #ccc;
+    --dark-gray: #666;
+    --danger-color: #f44336;
+    --success-color: #4CAF50;
+    --warning-color: #ff9800;
+    --font-family: 'Cairo', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    direction: rtl;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 20px;
+    color: white;
+    transition: width 0.3s ease; /* Smooth transition for width */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Scrollbar if content overflows */
+}
+
+.sidebar-title {
+    margin-bottom: 25px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* More consistent spacing */
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: 500;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px); /* Slight horizontal shift on hover */
+}
+
+
+/* Content Area */
+.content {
+    flex-grow: 1;
+    padding: 25px;  /* More padding */
+    background-color: white;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;  /* Consistent margin */
+    overflow-y: auto; /* Scrollbar if needed */
+}
+
+#section-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Menu Toggle Button */
+#menu-toggle {
+    display: none; /* Hidden by default, shown on smaller screens */
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    padding: 10px 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#menu-toggle:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1001; /* Above other content */
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Make modal scrollable if content overflows */
+
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Responsive width */
+    max-width: 600px; /* Max width */
+    padding: 30px;
+    position: relative; /* For positioning close button */
+}
+
+.modal-title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Center icon with text */
+    gap: 0.5rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--dark-gray);
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--text-color);
+}
+
+.setting-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: flex; /* Align icon with text */
+    align-items: center;
+    gap: .5rem
+}
+
+.setting-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    font-family: var(--font-family);
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.save-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.save-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+
+/* Tabs (Settings Modal) */
+
+.tab-container{
+    display: flex;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+.tab-btn {
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+    transition: color 0.3s, border-bottom-color 0.3s;
+    border-bottom: 2px solid transparent; /* For smooth transition */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.tab-btn.active, .tab-btn:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+.tab-content {
+    display: none; /* Hide all tab content by default */
+    padding: 20px 0;
+    animation: fadeEffect 0.5s; /* Add fade-in animation */
+
+}
+
+/* Storage Section */
+.storage-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.storage-buttons button,
+.storage-section button[type="submit"] {  /* Style form submit button too */
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    display: flex; /* Align icon with text */
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.storage-buttons button:hover,
+.storage-section button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Product Table */
+#product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#product-table th,
+#product-table td {
+    padding: 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+#product-table th {
+    background-color: var(--light-gray);
+    font-weight: 600;
+}
+
+#product-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.action-buttons button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.edit-btn:hover{
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
+/* Search Input */
+#search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: -250px; /* Initially hidden */
+        width: 250px;
+        height: 100vh;
+        z-index: 999; /* Below the toggle button, above content */
+        transition: right 0.3s ease; /* Add transition */
+    }
+
+    .sidebar.active {
+        right: 0; /* Slide in from the right */
+    }
+
+    #menu-toggle {
+        display: block; /* Show the toggle button */
+    }
+
+    .content {
+        margin-right: 0; /* Remove margin when sidebar is hidden */
+        padding: 15px;  /* Reduce padding */
+        margin: 10px 0; /* Remove horizontal margin, keep vertical */
+        border-radius: 0; /* Remove border-radius */
+    }
+    .modal-content{
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--success-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none; /* Hidden by default */
+  z-index: 1002;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notification.error {
+  background-color: var(--danger-color);
+}
+.notification.show {
+  display: flex;
+}
